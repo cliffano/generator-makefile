@@ -1,0 +1,136 @@
+################################################################
+# {{ project_name }}: Makefile for building Python packages
+# https://github.com/{{ github_id }}/{{ github_repo }}
+################################################################
+
+# {{ project_name }}'s version number
+{{ uppercase project_name }}_VERSION = 2.0.1-pre.0
+
+################################################################
+# User configuration variables
+# These variables should be stored in {{ project_name }}.yml config file,
+# and they will be parsed using yq https://github.com/mikefarah/yq
+# Example:
+# ---
+# package_name: somepackage
+# author: Some Author
+
+# PACKAGE_NAME is the name of the Python package
+PACKAGE_NAME=$(shell yq .package_name {{ project_name }}.yml)
+
+# AUTHOR is the author of the Python package
+AUTHOR ?= $(shell yq .author {{ project_name }}.yml)
+
+$(info ################################################################)
+$(info Building node package using {{ project_name }} with user configurations:)
+$(info - Package name: ${PACKAGE_NAME})
+$(info - Author: ${AUTHOR})
+
+export PATH := node_modules/bin:$(PATH)
+
+################################################################
+# Base targets
+
+# CI target to be executed by CI/CD tool
+all:ci
+ci: clean deps style lint test coverage complexity doc package reinstall test-integration
+
+# Ensure stage directory exists
+stage:
+	mkdir -p stage
+
+# Remove all temporary (staged, generated, cached) files
+clean:
+	bob clean
+
+# Retrieve the Pyhon package dependencies
+deps:
+	bob dep
+
+deps-upgrade:
+	bob updep
+
+rmdeps:
+	bob rmdep
+
+# Update Makefile to the latest version tag
+update-to-latest: TARGET_{{ project_id }}_VERSION = $(shell curl -s https://api.github.com/repos/cliffano/{{ project_id }}/tags | jq -r '.[0].name')
+update-to-latest: update-to-version
+
+# Update Makefile to the main branch
+update-to-main:
+	curl https://raw.githubusercontent.com/cliffano/{{ project_id }}/main/src/Makefile-{{ project_id }} -o Makefile
+
+# Update Makefile to the version defined in TARGET_{{ project_id }}_VERSION parameter
+update-to-version:
+	curl https://raw.githubusercontent.com/cliffano/{{ project_id }}/$(TARGET_{{ project_id }}_VERSION)/src/Makefile-{{ project_id }} -o Makefile
+
+################################################################
+# Formatting targets
+
+style:
+	$(call python_venv,black $(PACKAGE_NAME) tests tests-integration examples)
+
+################################################################
+# Testing targets
+
+lint: stage
+	bob lint
+
+complexity: stage
+	bob complexity
+
+test:
+	bob test
+
+test-integration:
+	bob test-integration
+
+test-examples:
+	mkdir -p stage/test-examples/
+	cd examples && \
+	for f in *.sh; do \
+	  bash -x "$$f"; \
+	done
+
+coverage:
+	bob coverage
+
+################################################################
+# Release targets
+
+release-major:
+	rtk release --release-increment-type major
+
+release-minor:
+	rtk release --release-increment-type minor
+
+release-patch:
+	rtk release --release-increment-type patch
+
+################################################################
+# Packaging, installation, and publishing targets
+
+package:
+	bob package
+
+install: package
+	npm link .
+
+uninstall:
+	npm unlink .
+
+reinstall: uninstall install
+
+publish:
+	npm publish
+
+################################################################
+# Documentation targets
+
+doc: stage
+	bob doc
+
+################################################################
+
+.PHONY: all ci clean complexity configurations coverage deps deps-extra-apt deps-upgrade rmdeps doc export export export install install-wheel lint name package package publish reinstall release-major release-minor release-patch stage style test test-examples test-integration uninstall update-to-latest update-to-latest update-to-main update-to-version
