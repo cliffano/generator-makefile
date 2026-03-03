@@ -1,6 +1,0 @@
-conflog
-docker
-PyYAML
-pytest
-pytest-testinfra
-yamllint

@@ -4,7 +4,7 @@
 ################################################################
 
 # {{ project_name }}'s version number
-{{ uppercase project_name }}_VERSION = 2.0.1-pre.0
+{{ uppercase project_name }}_VERSION = 0.9.0-pre.0
 
 ################################################################
 # User configuration variables
@@ -69,7 +69,8 @@ update-to-version:
 # Formatting targets
 
 style:
-	$(call python_venv,black $(PACKAGE_NAME) tests tests-integration examples)
+	prettier lib/ --write
+	prettier test/ --write
 
 ################################################################
 # Testing targets
