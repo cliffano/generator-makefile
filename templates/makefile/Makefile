@@ -7,7 +7,7 @@
 {{ uppercase project_id }}_VERSION = 2.0.0
 
 $(info ################################################################)
-$(info Building TODO using Makefile:)
+$(info Building {{ project_name }} using Makefile:)
 
 define python_venv
 	. .venv/bin/activate && $(1)
