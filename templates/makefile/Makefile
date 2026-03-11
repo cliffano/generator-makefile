@@ -39,11 +39,30 @@ deps:
 
 deps-upgrade:
 	python3 -m venv .venv
+	$(call python_venv,python3 -m pip install --upgrade pip setuptools)
 	$(call python_venv,python3 -m pip install -r requirements-dev.txt)
 	$(call python_venv,pip-compile --upgrade)
 
 lint:
 	$(call python_venv,yamllint .)
+
+test:
+	cd examples && \
+	  which bob && \
+	  bob --version && \
+	  make -f ../src/Makefile-{{project_id}} ci test-examples deps-upgrade update-dotfiles update-to-latest update-to-main && \
+	  make -f ../src/Makefile-{{project_id}} update-to-version TARGET_{{ uppercase project_id }}_VERSION=1.0.0
+
+release-major:
+	rtk release --release-increment-type major
+
+release-minor:
+	rtk release --release-increment-type minor
+
+release-patch:
+	rtk release --release-increment-type patch
+
+release: release-minor
 
 # Update Makefile to the latest version tag
 update-to-latest: TARGET_{{ uppercase project_id }}_VERSION = $(shell curl -s https://api.github.com/repos/{{ github_id }}/{{ github_repo }}/tags | jq -r '.[0].name')
@@ -57,4 +76,4 @@ update-to-main:
 update-to-version:
 	curl https://raw.githubusercontent.com/{{ github_id }}/{{ github_repo }}/$(TARGET_{{ uppercase project_id }}_VERSION)/src/Makefile-{{ project_id }} -o Makefile
 
-.PHONY: ci all clean rmdeps deps deps-upgrade lint test update-to-latest update-to-main update-to-version stage x-test-fixtures
+.PHONY: ci all stage clean rmdeps deps deps-upgrade lint test release-major release-minor release-patch release update-to-latest update-to-main update-to-version

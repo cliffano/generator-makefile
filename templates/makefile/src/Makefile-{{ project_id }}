@@ -16,10 +16,10 @@
 # author: Some Author
 
 # PACKAGE_NAME is the name of the Python package
-PACKAGE_NAME=$(shell yq .package_name {{ project_name }}.yml)
+PACKAGE_NAME=$(shell yq .package_name {{ project_id }}.yml)
 
 # AUTHOR is the author of the Python package
-AUTHOR ?= $(shell yq .author {{ project_name }}.yml)
+AUTHOR ?= $(shell yq .author {{ project_id }}.yml)
 
 $(info ################################################################)
 $(info Building node package using {{ project_name }} with user configurations:)
@@ -33,7 +33,7 @@ export PATH := node_modules/bin:$(PATH)
 
 # CI target to be executed by CI/CD tool
 all:ci
-ci: clean deps style lint test coverage complexity doc package reinstall test-integration
+ci: deps clean style lint test coverage complexity doc package reinstall test-integration
 
 # Ensure stage directory exists
 stage:
@@ -45,6 +45,7 @@ clean:
 
 # Retrieve the Pyhon package dependencies
 deps:
+	npm install -g bob@4.0.0
 	bob dep
 
 deps-upgrade:
@@ -65,12 +66,24 @@ update-to-main:
 update-to-version:
 	curl https://raw.githubusercontent.com/cliffano/{{ project_id }}/$(TARGET_{{ project_id }}_VERSION)/src/Makefile-{{ project_id }} -o Makefile
 
+# Update dotfiles using the generator-python
+update-dotfiles: GENERATOR_COMPONENT = $(shell yq .generator.component piemaker.yml)
+update-dotfiles: GENERATOR_INPUTS_PROJECT_ID = $(shell yq .generator.inputs.project_id piemaker.yml)
+update-dotfiles: GENERATOR_INPUTS_PROJECT_NAME = $(shell yq .generator.inputs.project_name piemaker.yml)
+update-dotfiles: GENERATOR_INPUTS_PROJECT_DESC = $(shell yq .generator.inputs.project_desc piemaker.yml)
+update-dotfiles: GENERATOR_INPUTS_AUTHOR_NAME = $(shell yq .generator.inputs.author_name piemaker.yml)
+update-dotfiles: GENERATOR_INPUTS_AUTHOR_EMAIL = $(shell yq .generator.inputs.author_email piemaker.yml)
+update-dotfiles: GENERATOR_INPUTS_GITHUB_ID = $(shell yq .generator.inputs.github_id piemaker.yml)
+update-dotfiles: GENERATOR_INPUTS_GITHUB_REPO = $(shell yq .generator.inputs.github_repo piemaker.yml)
+update-dotfiles: stage
+	echo "TODO"
+
 ################################################################
 # Formatting targets
 
 style:
-	prettier lib/ --write
-	prettier test/ --write
+	echo "prettier lib/ --write"
+	echo "prettier test/ --write"
 
 ################################################################
 # Testing targets
