@@ -1,11 +1,9 @@
-<img align="right" src="https://raw.github.com/cliffano/generator-makefile/main/avatar.jpg" alt="Avatar"/>
+![Avatar](avatar.jpg)
 
 [![Build Status](https://github.com/cliffano/generator-makefile/workflows/CI/badge.svg)](https://github.com/cliffano/generator-makefile/actions?query=workflow%3ACI)
 [![Security Status](https://snyk.io/test/github/cliffano/generator-makefile/badge.svg)](https://snyk.io/test/github/cliffano/generator-makefile)
-<br/>
 
-Generator-Makefile
-------------------
+# Generator-Makefile
 
 Generator-Makefile is a Makefile projects generator.
 
@@ -15,8 +13,7 @@ It provides the following components:
 |-----------|-------------|
 | makefile | Generate a Makefile project |
 
-Usage
------
+## Usage
 
 Generate code generator project:
 
@@ -38,8 +35,7 @@ Move to the generated project directory:
 
     cd stage/makefile/
 
-Configuration
--------------
+## Configuration
 
 | Key | Value |
 |-----|-------|
