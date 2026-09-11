@@ -34,7 +34,7 @@ deps-extra-apt:
 # Utility targets
 ########################################
 
-GENERATOR_CONFIG ?= makefile.yml
+GENERATOR_CONFIG ?= makeroo.yml
 
 define set_generator_vars
 $(1): GENERATOR_COMPONENT = $$(shell yq .generator.component $(2))
@@ -66,7 +66,7 @@ generate-makefile-with-config: clean-makefile
 		--github_token_prefix "$(GENERATOR_INPUTS_GITHUB_TOKEN_PREFIX)"
 
 test-makefile: clean-makefile
-	make generate-makefile-with-config GENERATOR_CONFIG=examples/makefile-makefile.yml
+	make generate-makefile-with-config GENERATOR_CONFIG=examples/makeroo-makefile.yml
 	cd stage/makefile/ && make ci
 
 ########################################
@@ -93,6 +93,6 @@ generate-makefile-partials-with-config: clean-makefile-partials
 		--github_token_prefix "$(GENERATOR_INPUTS_GITHUB_TOKEN_PREFIX)"
 
 test-makefile-partials: clean-makefile-partials
-	make generate-makefile-partials-with-config GENERATOR_CONFIG=examples/makefile-makefile-partials.yml
+	make generate-makefile-partials-with-config GENERATOR_CONFIG=examples/makeroo-makefile-partials.yml
 
 .PHONY: ci clean clean-makefile clean-makefile-partials stage deps deps-extra-apt generate-makefile generate-makefile-with-config test-makefile generate-makefile-partials generate-makefile-partials-with-config test-makefile-partials

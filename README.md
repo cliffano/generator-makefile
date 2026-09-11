@@ -40,13 +40,13 @@ This component will prompt you the following inputs:
 
 ## Usage With Config File
 
-Each component also has a `-with-config` target that skips the interactive prompts by reading the inputs from a YAML config file. See [examples/](examples/) for sample config files for each component.
+Each component also has a `-with-config` target that skips the interactive prompts by reading the inputs from a Makeroo YAML config file. See [examples/](examples/) for sample config files for each component.
 
-Pass the config file path via the `GENERATOR_CONFIG` variable, it defaults to `makefile.yml`:
+Pass the config file path via the `GENERATOR_CONFIG` variable, it defaults to `makeroo.yml`:
 
 ```shell
-make generate-makefile-with-config GENERATOR_CONFIG=path/to/makefile.yml
-make generate-makefile-partials-with-config GENERATOR_CONFIG=path/to/makefile.yml
+make generate-makefile-with-config GENERATOR_CONFIG=path/to/makeroo.yml
+make generate-makefile-partials-with-config GENERATOR_CONFIG=path/to/makeroo.yml
 ```
 
 Move to the generated project directory:
