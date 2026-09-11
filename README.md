@@ -4,6 +4,7 @@
 
 <!-- BEGIN:BADGES -->
 [![Build Status](https://github.com/cliffano/generator-makefile/workflows/CI/badge.svg)](https://github.com/cliffano/generator-makefile/actions?query=workflow%3ACI)
+[![Code Scanning Status](https://github.com/cliffano/generator-makefile/workflows/CodeQL/badge.svg)](https://github.com/cliffano/generator-makefile/actions?query=workflow%3ACodeQL)
 [![Security Status](https://snyk.io/test/github/cliffano/generator-makefile/badge.svg)](https://snyk.io/test/github/cliffano/generator-makefile)
 <!-- END:BADGES -->
 
@@ -36,6 +37,17 @@ This component will prompt you the following inputs:
 | Author Email | The email of the project author. |
 | Author URL | The author's website URL. |
 | GitHub ID | The GitHub ID of the project repo. |
+
+## Usage With Config File
+
+Each component also has a `-with-config` target that skips the interactive prompts by reading the inputs from a YAML config file. See [examples/](examples/) for sample config files for each component.
+
+Pass the config file path via the `GENERATOR_CONFIG` variable, it defaults to `makefile.yml`:
+
+```shell
+make generate-makefile-with-config GENERATOR_CONFIG=path/to/makefile.yml
+make generate-makefile-partials-with-config GENERATOR_CONFIG=path/to/makefile.yml
+```
 
 Move to the generated project directory:
 

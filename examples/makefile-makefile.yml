@@ -1,0 +1,15 @@
+---
+package_name: makefile
+author: Pakkun
+generator:
+  component: makefile
+  inputs:
+    project_id: makefile
+    project_name: Makefile
+    project_desc: A sample Makefile
+    author_name: Pakkun
+    author_email: pakkunbot@users.noreply.github.com
+    author_url: https://github.com/pakkunbot
+    github_id: pakkunbot
+    github_repo: makefile
+    github_token_prefix: STUDIO

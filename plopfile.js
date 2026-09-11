@@ -80,4 +80,19 @@ export default function (plop) {
       }
     ]
   });
+
+  plop.setGenerator('makefile-partials', {
+    description: 'Makefile partials template',
+    prompts: prompts,
+    actions: [
+      {
+        type: 'addMany',
+        destination: 'stage/makefile-partials',
+        templateFiles: [
+          'templates/makefile-partials/*'
+        ],
+        base: 'templates/makefile-partials'
+      }
+    ]
+  });
 };
