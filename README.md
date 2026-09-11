@@ -1,7 +1,11 @@
+<!-- BEGIN:AVATAR -->
 ![Avatar](avatar.jpg)
+<!-- END:AVATAR -->
 
+<!-- BEGIN:BADGES -->
 [![Build Status](https://github.com/cliffano/generator-makefile/workflows/CI/badge.svg)](https://github.com/cliffano/generator-makefile/actions?query=workflow%3ACI)
 [![Security Status](https://snyk.io/test/github/cliffano/generator-makefile/badge.svg)](https://snyk.io/test/github/cliffano/generator-makefile)
+<!-- END:BADGES -->
 
 # Generator-Makefile
 
@@ -17,7 +21,9 @@ It provides the following components:
 
 Generate code generator project:
 
-    make generate-makefile
+```shell
+make generate-makefile
+```
 
 This component will prompt you the following inputs:
 
@@ -33,7 +39,9 @@ This component will prompt you the following inputs:
 
 Move to the generated project directory:
 
-    cd stage/makefile/
+```shell
+cd stage/makefile/
+```
 
 ## Configuration
 
@@ -46,3 +54,14 @@ Move to the generated project directory:
 | author_email | cliffano@gmail.com |
 | github_id | cliffano |
 | github_repo | generator-makefile |
+
+## Colophon
+
+<!-- BEGIN:DEVELOPERS_GUIDE -->
+[Developer's Guide](https://cliffano.github.io/developers-guide-makefile.html)
+<!-- END:DEVELOPERS_GUIDE -->
+
+<!-- BEGIN:BUILD_REPORTS -->
+Build reports:
+
+<!-- END:BUILD_REPORTS -->

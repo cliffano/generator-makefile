@@ -76,4 +76,4 @@ update-to-main:
 update-to-version:
 	curl https://raw.githubusercontent.com/{{ github_id }}/{{ github_repo }}/$(TARGET_{{ uppercase project_id }}_VERSION)/src/Makefile-{{ project_id }} -o Makefile
 
-.PHONY: ci all stage clean rmdeps deps deps-upgrade lint test release-major release-minor release-patch release update-to-latest update-to-main update-to-version
+.PHONY: $(1) ci all stage clean rmdeps deps deps-upgrade lint test release-major release-minor release-patch release update-to-latest update-to-main update-to-version
