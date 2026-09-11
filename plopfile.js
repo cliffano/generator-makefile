@@ -16,45 +16,57 @@ export default function (plop) {
     return text.toUpperCase();
   });
 
+  const prompts = [
+    {
+      type: 'input',
+      name: 'project_id',
+      message: 'Project ID'
+    },
+    {
+      type: 'input',
+      name: 'project_name',
+      message: 'Project Name'
+    },
+    {
+      type: 'input',
+      name: 'project_desc',
+      message: 'Project Description '
+    },
+    {
+      type: 'input',
+      name: 'author_name',
+      message: 'Author Name'
+    },
+    {
+      type: 'input',
+      name: 'author_email',
+      message: 'Author Email'
+    },
+    {
+      type: 'input',
+      name: 'author_url',
+      message: 'Author URL'
+    },
+    {
+      type: 'input',
+      name: 'github_id',
+      message: 'GitHub ID'
+    },
+    {
+      type: 'input',
+      name: 'github_repo',
+      message: 'GitHub Repository'
+    },
+    {
+      type: 'input',
+      name: 'github_token_prefix',
+      message: 'GitHub Actions token prefix'
+    }
+  ];
+
   plop.setGenerator('makefile', {
     description: 'Makefile Plop',
-    prompts: [
-      {
-        type: 'input',
-        name: 'project_id',
-        message: 'Project ID'
-      },
-      {
-        type: 'input',
-        name: 'project_name',
-        message: 'Project Name'
-      },
-      {
-        type: 'input',
-        name: 'project_desc',
-        message: 'Project Description '
-      },
-      {
-        type: 'input',
-        name: 'author_name',
-        message: 'Author Name'
-      },
-      {
-        type: 'input',
-        name: 'author_email',
-        message: 'Author Email'
-      },
-      {
-        type: 'input',
-        name: 'github_id',
-        message: 'GitHub ID'
-      },
-      {
-        type: 'input',
-        name: 'github_repo',
-        message: 'GitHub Repository'
-      }
-    ],
+    prompts: prompts,
     actions: [
       {
         type: 'addMany',
