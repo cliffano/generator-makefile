@@ -1,6 +1,7 @@
 # Start of Studio gitignore
 core
 stage/
+# Has addendum
 # End of Studio gitignore
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos,python,ansible,visualstudiocode
@@ -371,3 +372,7 @@ pyrightconfig.json
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/node,macos,python,ansible,visualstudiocode
+
+# Start of Studio gitignore addendum
+!templates/makefile/examples/lib/
+# End of Studio gitignore addendum
